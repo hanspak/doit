@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Command line helper for plotting apartment transaction trends."""
 
+import os
 from __future__ import annotations
 
 import argparse
@@ -17,7 +18,7 @@ from matplotlib import font_manager, ticker
 from matplotlib.ticker import StrMethodFormatter
 from sqlalchemy import create_engine, text
 
-DEFAULT_DB_PATH = Path("c:/doit/land/dbTHEH.db")
+DEFAULT_DB_PATH = Path("C:\db\dbTHEH.db")
 DEFAULT_DANGI_LIST = [
     "11710-6346",
     "41290-181",

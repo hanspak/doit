@@ -3,7 +3,7 @@
 - tbl_real_estate 임시 파일에 있는 데이터를 tblReal 테이블로 값 이전
 - tblRealStatAptMon 테이블에 통계 데이터 생성
 """
-
+import os
 import pandas as pd
 import time
 from sqlalchemy import create_engine
@@ -13,7 +13,7 @@ from datetime import datetime
 # ----------------------------------------
 # 설정
 # ----------------------------------------
-DB_PATH = Path("c:/doit/land/dbTHEH.db")
+DB_PATH = Path(os.environ["DB_PATH"])  # C:\db\dbTHEH.db
 SRC_TABLE_NAME = "tbl_real_estate"
 TG_TABLE_NAME = "tblReal"
 STAT_TABLE_NAME = "tblRealStatAptMon"

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,7 +13,7 @@ from datetime import datetime, timedelta
 # =========================
 # 1) 사용자 설정
 # =========================
-DB_PATH = Path("c:/doit/land/dbTHEH.db")
+DB_PATH = Path("C:\db\dbTHEH.db")
 
 s_date = '2018-01-01'
 e_date = '2025-12-31'

@@ -5,7 +5,7 @@
 - XML → DataFrame 변환
 - SQLite 저장
 """
-
+import os 
 import requests
 import xml.etree.ElementTree as ET
 import pandas as pd
@@ -18,7 +18,7 @@ from datetime import datetime
 # ----------------------------------------
 # 설정
 # ----------------------------------------
-DB_PATH = Path("c:/doit/land/dbTHEH.db")
+DB_PATH = Path(os.environ["DB_PATH"])  # C:\db\dbTHEH.db
 INPUT_FILE = Path("c:/doit/land/code.xlsx")
 SHEET_NAME = "list"
 #SERVICE_KEY = "UIRiUedSrUkb68ntUOKaIkSoppX9Pc1aY3jLtDG4OYFF6PJU7P3pPDybDDYgzaPDGG+0O4lkmzMhz7/o5J0oWw=="
