@@ -6,6 +6,7 @@
 - SQLite 저장
 """
 
+import os
 import requests
 import xml.etree.ElementTree as ET
 import pandas as pd
@@ -15,11 +16,14 @@ from sqlalchemy import text
 from pathlib import Path
 from datetime import datetime
 
+
+
+
 # ----------------------------------------
 # 설정
 # ----------------------------------------
-DB_PATH = Path("c:/doit/land/dbTHEH.db")
-INPUT_FILE = Path("c:/doit/land/code.xlsx")
+DB_PATH = Path(os.environ["DB_PATH"])  # C:\db\dbTHEH.db
+INPUT_FILE = Path(os.environ["INPUT_FILE"]) 
 SHEET_NAME = "list"
 SERVICE_KEY = "UIRiUedSrUkb68ntUOKaIkSoppX9Pc1aY3jLtDG4OYFF6PJU7P3pPDybDDYgzaPDGG+0O4lkmzMhz7/o5J0oWw=="
 TABLE_NAME = "tbl_real_estate"
@@ -281,7 +285,7 @@ if __name__ == '__main__':
             #for deal_ymd in ['202301', '202302','202303','202304','202305','202306','202307','202308','202309','202310','202311','202312']:  # 테스트용
             #for deal_ymd in ['202501','202502','202503','202504']:  # 테스트용
             for deal_year in range(2025,2026):
-                for deal_month in range(9,11):
+                for deal_month in range(10,11):
                     rowCount = 0
                     deal_ymd = f"{deal_year}{str(deal_month).zfill(2)}"
 
