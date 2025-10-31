@@ -1,0 +1,120 @@
+--insert into tblReal
+SELECT 법정동시군구코드   sggCd, DATE(printf('%04d-%02d-%02d', 계약년도, 계약월, 계약일))  dealDate,  단지일련번호 aptSeq, 층 floor, 전용면적 excluUseAr 
+       ,CASE WHEN 해제여부 = 'O' THEN -1 ELSE 1 END  cdealType
+       , ROW_NUMBER() OVER (
+           PARTITION BY 법정동시군구코드, 계약년도, 계약월, 계약일, 단지일련번호, 층, 전용면적, 해제여부
+           ORDER BY 계약일 -- 또는 다른 정렬 기준
+       ) AS no	   , round( 전용면적 / 3.305785,1 ) useArea
+	   , case when 해제사유발생일 is not NULL
+             then date(printf('20%02d-%02d-%02d',substr(해제사유발생일,1,2), substr(해제사유발생일,4,2) , substr(해제사유발생일,7,2))) 
+			 else NULL
+			 end  cdealDay
+	   , 법정동 umdNm, 지번 jibun, 단지명 aptNm, 아파트동명 aptDong  
+	   , case when 해제사유발생일 is not NULL
+             then date(printf('20%02d-%02d-%02d',substr(등기일자,1,2), substr(등기일자,4,2) , substr(등기일자,7,2))) 
+			 else NULL
+			 end  rgstDate
+	   , CAST(replace(거래금액,",","") as integer) dealAmount, 거래유형 dealingGbn, 중개사소재지 estateAgentSggNm
+	   , 매도자 slerGbn, 매수자 buyerGbn, 토지임대부아파트여부 landLeaseholdGbn
+	   , 법정동읍면동코드 umdCd, 법정동지번코드 landCd, 법정동본번코드 bonbun, 법정동부번코드 bubun
+	   , 도로명 roadNm, 도로명시군구코드 roadNmSggCd, 도로명코드 roadNmCd
+	   , 도로명일련번호코드 roadNmSeq, 도로명지상지하코드 roadNmbCd, 도로명건물본번호코드 roadNmBonbun
+FROM tbl_real_estate
+where 계약년도='2025' ;
+
+
+
+
+
+--CREATE TABLE real_estate_unique AS
+select * --CAST(replace(거래금액,&quot;,&quot;,&quot;&quot;) as integer)
+FROM real_estate;
+
+       , ROW_NUMBER() OVER (
+           PARTITION BY 법정동시군구코드, 계약년도, 계약월, 계약일, 단지일련번호, 아파트동명, 층, 전용면적,  해제여부
+           ORDER BY 계약일 -- 또는 다른 정렬 기준
+       ) AS no
+
+insert into tblReal
+
+
+
+
+/*
+WITH ranked AS (
+    SELECT *,
+           ROW_NUMBER() OVER (
+               PARTITION BY 법정동시군구코드, 단지일련번호, 계약년도, 계약월, 계약일
+               ORDER BY 계약금액 DESC
+           ) AS rn
+    FROM real_estate
+)
+SELECT *
+FROM ranked
+WHERE rn = 1;
+*/
+
+
+update tblReal
+  set cdealType = case cdealType when -1 then -1 else 1 end;
+  
+  
+select cdealType
+from tblReal;
+
+
+
+</sql><sql name="SQL 4">CREATE TABLE &quot;tblReal&quot; (
+	&quot;sggCd&quot;	TEXT,
+	&quot;dealDate&quot;	date,
+	&quot;aptSeq&quot;	TEXT,
+	&quot;floor&quot; 	 integer,
+	&quot;excluUseAr&quot;	 real,
+	&quot;cdealType&quot;	integer,
+	&quot;no&quot;	integer,
+	&quot;cdealDay&quot;	date,
+	&quot;umdNm&quot;	TEXT,
+	&quot;jibun&quot;	TEXT,
+	&quot;aptNm&quot;	TEXT,
+	&quot;aptDong&quot;	TEXT,
+	&quot;rgstDate&quot;	TEXT,
+	&quot;dealAmount&quot;	real,
+	&quot;dealingGbn&quot;	TEXT,
+	&quot;estateAgentSggNm&quot;	TEXT,
+	&quot;slerGbn&quot;	TEXT,
+	&quot;buyerGbn&quot;	TEXT,
+	&quot;landLeaseholdGbn&quot;	TEXT,
+	&quot;umdCd&quot;	TEXT,
+	&quot;landCd&quot;	TEXT,
+	&quot;bonbun&quot;	TEXT,
+	&quot;bubun&quot;	TEXT,
+	&quot;roadNm&quot;	TEXT,
+	&quot;roadNmSggCd&quot;	TEXT,
+	&quot;roadNmCd&quot;	TEXT,
+	&quot;roadNmSeq&quot;	TEXT,
+	&quot;roadNmbCd&quot;	TEXT,
+	&quot;roadNmBonbun&quot;	TEXT
+);
+
+</sql><sql name="SQL 4* (1)*">select strftime('%Y', dealDate) delYear,  printf('%.0f', avg(dealAmount) * 10000) dealAmount
+from tblReal
+where aptSeq = '11260-3783'
+and excluUseAr between 84 and 85
+group by strftime('%Y', dealDate);
+
+
+where aptNm like '%편한세상화랑대%';
+
+
+select strftime('%Y', dealDate)
+       ,printf('%.0f', avg(dealAmount * cdealType))
+from tblReal
+where aptSeq = '11260-3783'
+and excluUseAr between 84 and 85
+--and cdealType = 1
+group by strftime('%Y', dealDate);
+
+
+select *
+from tblReal;
+</sql><current_tab id="2"/></tab_sql></sqlb_project>
