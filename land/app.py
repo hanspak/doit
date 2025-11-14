@@ -26,6 +26,11 @@ AREA_RANGES_M2 = [
     ("135㎡ 이상", (135, None)),
 ]
 
+def first_day_of_previous_month(reference: date) -> date:
+    first_of_month = reference.replace(day=1)
+    return (first_of_month - timedelta(days=1)).replace(day=1)
+
+
 # =============================
 # 데이터 로드 함수
 # =============================
@@ -381,7 +386,8 @@ if menu == "최고가 아파트":
 
     with col3:
         today = date.today()
-        start_dt = st.date_input("시작일자", value=date(today.year, today.month, 1))
+        prev_month_start = first_day_of_previous_month(today)
+        start_dt = st.date_input("시작일자", value=prev_month_start)
     
     with col4:
         today = date.today()
@@ -491,6 +497,7 @@ if menu == "거래량 조회":
 
     col1, col2, col3 = st.columns([1.2, 1, 1])
     today = date.today()
+    prev_month_start = first_day_of_previous_month(today)
 
     with col1:
         if not p1_df2.empty:
@@ -524,7 +531,7 @@ if menu == "거래량 조회":
 
     col4, col5 = st.columns(2)
     with col4:
-        start_dt = st.date_input("시작 월", value=date(today.year, 1, 1), key="start")
+        start_dt = st.date_input("시작 월", value=prev_month_start, key="start")
     with col5:
         end_dt = st.date_input("종료 월", value=today, key="end")
 
@@ -554,6 +561,7 @@ if menu == "시세 추이":
 
     col1, col2, col3 = st.columns([1.2, 1, 1])
     today = date.today()
+    prev_month_start = first_day_of_previous_month(today)
 
     with col1:
         if not p1_df3.empty:
@@ -582,7 +590,7 @@ if menu == "시세 추이":
             selected_sgg3, selected_sgg_nm3 = "", ""
 
     with col3:
-        start_dt3 = st.date_input("시작 월", value=date(today.year - 1, today.month, 1), key="start3")
+        start_dt3 = st.date_input("시작 월", value=prev_month_start, key="start3")
         end_dt3 = st.date_input("종료 월", value=today, key="end3")
 
     if selected_sgg3:
