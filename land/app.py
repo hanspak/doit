@@ -243,7 +243,7 @@ def load_apartment_yearly_stats(sgg_code: str, apt_seq: str, apt_nm: str) -> pd.
         df = pd.read_sql_query(
             """
             SELECT 
-                strftime('%Y', dealDate) AS dealYear,
+                strftime('%Y-%m', dealDate) AS dealYear,
                 ROUND(AVG(dealAmount), 0) AS avgPrice,
                 COUNT(*) AS volume
             FROM tblReal
@@ -251,7 +251,7 @@ def load_apartment_yearly_stats(sgg_code: str, apt_seq: str, apt_nm: str) -> pd.
               AND aptSeq = ?
               AND aptNm = ?
               AND cdealType = 1
-            GROUP BY strftime('%Y', dealDate)
+            GROUP BY strftime('%Y-%m', dealDate)
             ORDER BY dealYear
             """,
             conn,
@@ -443,7 +443,7 @@ if menu == "최고가 아파트":
                         fig.add_trace(
                             go.Scatter(
                                 x=yearly_stats["dealYear"],
-                                y=yearly_stats["avgPrice"] / 100000000,  # 억 단위로 변환
+                                y=yearly_stats["avgPrice"] * 10000,  # 억 단위로 변환 / 100000000
                                 name="평균가격",
                                 mode="lines+markers",
                                 line=dict(color="blue", width=2),
